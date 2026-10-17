@@ -1,0 +1,719 @@
+cat > /mnt/user-data/outputs/programa-v7.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jessica — V7 · Programa Semana</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d0f;
+  --bg2: #131316;
+  --bg3: #1a1a1f;
+  --bg4: #222228;
+  --border: #2a2a32;
+  --border2: #363642;
+  --text: #f0eee8;
+  --text2: #a0a0b0;
+  --text3: #606070;
+  --red: #ff4d2e;
+  --red2: #ff7055;
+  --orange: #ff8c42;
+  --yellow: #f5c842;
+  --green: #3ddc84;
+  --teal: #2dd4bf;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --pink: #f472b6;
+  --muay: #ff4d2e;
+  --leg: #3ddc84;
+  --arm: #60a5fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(13,13,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:52px}
+.nav-logo{font-weight:900;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.nav-logo span{color:var(--red)}
+.nav-tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.ntab{padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text3);transition:all .15s;white-space:nowrap;border:1px solid transparent}
+.ntab:hover{background:var(--bg3);color:var(--text2)}
+.ntab.active{background:var(--bg3);border-color:var(--border2);color:var(--text)}
+.ntab.muay-t.active{border-color:var(--red);color:var(--red)}
+.ntab.leg-t.active{border-color:var(--green);color:var(--green)}
+.ntab.arm-t.active{border-color:var(--blue);color:var(--blue)}
+
+/* HERO */
+.hero{padding:56px 32px 48px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-label::before{content:'';width:20px;height:1px;background:var(--red)}
+.hero-h1{font-weight:900;font-size:clamp(48px,6.5vw,88px);line-height:.88;letter-spacing:-.04em;margin-bottom:20px}
+.hero-h1 .r{color:var(--red)}
+.hero-h1 .g{color:var(--green)}
+.hero-desc{font-size:13px;color:var(--text2);line-height:1.7;max-width:380px}
+
+/* WEEK GRID */
+.week-grid{display:flex;flex-direction:column;gap:6px}
+.wday{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;border:1px solid var(--border)}
+.wday.muay{border-color:rgba(255,77,46,.3);background:rgba(255,77,46,.05)}
+.wday.leg-d{border-color:rgba(61,220,132,.3);background:rgba(61,220,132,.05)}
+.wday.arm-d{border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.05)}
+.wday-name{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3)}
+.wday-focus{font-size:13px;font-weight:600}
+.wday.muay .wday-focus{color:var(--red2)}
+.wday.leg-d .wday-focus{color:var(--green)}
+.wday.arm-d .wday-focus{color:var(--blue)}
+.wday-badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:3px}
+.wday.muay .wday-badge{background:rgba(255,77,46,.15);color:var(--red2)}
+.wday.leg-d .wday-badge{background:rgba(61,220,132,.15);color:var(--green)}
+.wday.arm-d .wday-badge{background:rgba(96,165,250,.15);color:var(--blue)}
+
+/* PANELS */
+.panels{max-width:1100px;margin:0 auto;padding:0 32px 80px}
+.panel{display:none;animation:fi .2s ease}
+.panel.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* PANEL HEADER */
+.ph{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px}
+.ph-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:10px}
+.ph-h2{font-weight:900;font-size:clamp(32px,4vw,56px);letter-spacing:-.03em;line-height:.95;margin-bottom:14px}
+.ph-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 9px;border-radius:3px;border:1px solid var(--border);color:var(--text3)}
+.ptag.r{border-color:rgba(255,77,46,.4);color:var(--red2)}
+.ptag.g{border-color:rgba(61,220,132,.4);color:var(--green)}
+.ptag.b{border-color:rgba(96,165,250,.4);color:var(--blue)}
+.ptag.y{border-color:rgba(245,200,66,.4);color:var(--yellow)}
+.ptag.p{border-color:rgba(167,139,250,.4);color:var(--purple)}
+
+/* BLOCKS */
+.block{margin-bottom:28px}
+.bhead{display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:8px 8px 0 0;border:1px solid var(--border)}
+.bhead.mob-pre{border-color:rgba(61,220,132,.3);background:rgba(61,220,132,.04)}
+.bhead.mob-post{border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.04)}
+.bhead.plyo{border-color:rgba(255,77,46,.3);background:rgba(255,77,46,.04)}
+.bhead.power{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.04)}
+.bhead.strength{border-color:rgba(96,165,250,.25);background:rgba(96,165,250,.04)}
+.bhead.abz{border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.04)}
+.bhead.muay-h{border-color:rgba(255,77,46,.4);background:rgba(255,77,46,.06)}
+.bhead.yoga-h{border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.04)}
+.b-icon{font-size:15px;flex-shrink:0}
+.b-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.b-title.red{color:var(--red2)} .b-title.green{color:var(--green)} .b-title.blue{color:var(--blue)}
+.b-title.yellow{color:var(--yellow)} .b-title.purple{color:var(--purple)} .b-title.teal{color:var(--teal)}
+.b-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.09em;margin-top:1px}
+.bbody{border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;background:var(--bg2);overflow:hidden}
+
+/* TABLE */
+.tt{width:100%;border-collapse:collapse}
+.tt thead{background:var(--bg3)}
+.tt th{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:var(--text3);padding:9px 14px;text-align:left;font-weight:400}
+.tt td{padding:12px 14px;border-bottom:1px solid var(--bg3);vertical-align:top;font-size:13px}
+.tt tr:last-child td{border-bottom:none}
+.tt tr:hover td{background:var(--bg3);transition:.1s}
+.td-n{font-weight:600;color:var(--text)}
+.td-tip{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
+.td-sets{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);white-space:nowrap}
+.wb{display:flex;flex-direction:column;gap:2px}
+.wb-w{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:700}
+.wb-o{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)}
+.prog{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;display:inline-block}
+.prog.reps{background:rgba(61,220,132,.1);border:1px solid rgba(61,220,132,.25);color:var(--green)}
+.prog.hold{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.25);color:var(--yellow)}
+.prog.maint{background:var(--bg3);border:1px solid var(--border);color:var(--text3)}
+.prog.key{background:rgba(255,77,46,.1);border:1px solid rgba(255,77,46,.25);color:var(--red2)}
+
+/* CARDS */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.ec{padding:14px 16px;border-right:1px solid var(--bg3);border-bottom:1px solid var(--bg3);position:relative;transition:background .12s}
+.ec:hover{background:var(--bg3)}
+.ec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:4px 0 0 4px}
+.ec.red::before{background:var(--red)} .ec.green::before{background:var(--green)} .ec.blue::before{background:var(--blue)}
+.ec.yellow::before{background:var(--yellow)} .ec.purple::before{background:var(--purple)} .ec.teal::before{background:var(--teal)}
+.ec.muay-c::before{background:var(--red)} .ec.mob::before{background:var(--green)} .ec.mob2::before{background:var(--teal)}
+.ec-n{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px}
+.ec-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.3}
+.ec-meta{font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:6px}
+.ec-meta.red{color:var(--red2)} .ec-meta.green{color:var(--green)} .ec-meta.blue{color:var(--blue)}
+.ec-meta.yellow{color:var(--yellow)} .ec-meta.purple{color:var(--purple)} .ec-meta.teal{color:var(--teal)}
+.ec-tip{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:5px}
+.ec-why{font-size:10px;color:var(--green);font-style:italic;line-height:1.4;margin-top:3px}
+.ec-prog{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red2);margin-top:4px}
+.yt{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:9px;text-decoration:none;margin-top:7px;padding:3px 8px;border-radius:3px;border:1px solid;transition:background .1s}
+.yt.r{color:var(--red2);border-color:rgba(255,77,46,.25)}.yt.r:hover{background:rgba(255,77,46,.08)}
+.yt.g{color:var(--green);border-color:rgba(61,220,132,.25)}.yt.g:hover{background:rgba(61,220,132,.08)}
+.yt.b{color:var(--blue);border-color:rgba(96,165,250,.25)}.yt.b:hover{background:rgba(96,165,250,.08)}
+.yt.y{color:var(--yellow);border-color:rgba(245,200,66,.25)}.yt.y:hover{background:rgba(245,200,66,.08)}
+.yt.p{color:var(--purple);border-color:rgba(167,139,250,.25)}.yt.p:hover{background:rgba(167,139,250,.08)}
+.yt.t{color:var(--teal);border-color:rgba(45,212,191,.25)}.yt.t:hover{background:rgba(45,212,191,.08)}
+.yt-views{font-size:8px;color:var(--text3)}
+
+/* MUAY THAI SECTION */
+.muay-hero{background:linear-gradient(135deg,rgba(255,77,46,.08) 0%,rgba(13,13,15,0) 60%);border:1px solid rgba(255,77,46,.2);border-radius:10px;padding:20px 24px;margin-bottom:20px}
+.muay-title{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--red);margin-bottom:8px}
+.muay-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* NOTES */
+.notes-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;margin-top:40px}
+.notes-title{font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.notes-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.nc{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:14px 16px}
+.nc-title{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.nc-title.r{color:var(--red2)} .nc-title.g{color:var(--green)} .nc-title.b{color:var(--blue)} .nc-title.p{color:var(--purple)} .nc-title.y{color:var(--yellow)}
+.ni{display:flex;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);padding:5px 8px;background:var(--bg);border-radius:3px;border:1px solid var(--border);margin-bottom:4px;line-height:1.5}
+.ni-k{color:var(--text3);flex-shrink:0;min-width:75px} .ni-v{color:var(--text2)}
+.rules{background:rgba(255,77,46,.06);border:1px solid rgba(255,77,46,.15);border-radius:7px;padding:14px 16px;margin-top:12px}
+.rules-title{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--red2);margin-bottom:10px}
+.rule{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);padding:5px 8px;background:rgba(255,77,46,.04);border-radius:3px;margin-bottom:4px;display:flex;gap:7px;line-height:1.5}
+.rule::before{content:'→';color:var(--red2);flex-shrink:0}
+
+/* PROGRESS BAR */
+.prog-bar-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:20px}
+.prog-bar-label{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:10px}
+.pb-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.pb-ex{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);width:120px;flex-shrink:0}
+.pb-bar{flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden}
+.pb-fill{height:100%;border-radius:3px;background:var(--green)}
+.pb-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);width:80px;text-align:right;flex-shrink:0}
+
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.f-text{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)}
+.creatine{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 12px;background:rgba(61,220,132,.07);border:1px solid rgba(61,220,132,.18);color:var(--green);border-radius:3px}
+
+@media(max-width:680px){
+  .hero{grid-template-columns:1fr}
+  nav,.hero,.panels{padding-left:16px;padding-right:16px}
+  .tt th:nth-child(3),.tt td:nth-child(3){display:none}
+  .notes-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">JESSICA · <span>V7</span></div>
+  <div class="nav-tabs">
+    <div class="ntab muay-t active" onclick="show('muay',this)">🥊 Muay Thai</div>
+    <div class="ntab leg-t" onclick="show('dia1',this)">Día 1 · Pierna A</div>
+    <div class="ntab arm-t" onclick="show('dia2',this)">Día 2 · Brazo A</div>
+    <div class="ntab leg-t" onclick="show('dia3',this)">Día 3 · Pierna B</div>
+    <div class="ntab arm-t" onclick="show('dia4',this)">Día 4 · Brazo B</div>
+    <div class="ntab" onclick="show('notas',this)">📋 Notas → V8</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-label">Programa V7 · Madrid</div>
+    <div class="hero-h1">FUERZA<br><span class="r">MUAY</span><br><span class="g">THAI</span></div>
+    <p class="hero-desc">Split de 4 días de gym + 3 días de Muay Thai. Progresión doble en fuerza, movilidad avanzada, abdominales para definición y técnica de Muay Thai sin saco.</p>
+  </div>
+  <div>
+    <div class="prog-bar-wrap">
+      <div class="prog-bar-label">📋 Pesos actuales confirmados</div>
+      <div class="pb-row"><span class="pb-ex">Sentadilla barra</span><div class="pb-bar"><div class="pb-fill" style="width:55%"></div></div><span class="pb-val">+20 kg discos</span></div>
+      <div class="pb-row"><span class="pb-ex">Deadlift barra</span><div class="pb-bar"><div class="pb-fill" style="width:65%"></div></div><span class="pb-val">+30 kg discos</span></div>
+      <div class="pb-row"><span class="pb-ex">Hip Thrust máq.</span><div class="pb-bar"><div class="pb-fill" style="width:48%"></div></div><span class="pb-val">22 + 1 placa 20</span></div>
+    </div>
+    <div class="week-grid">
+      <div class="wday muay"><span class="wday-name">Lunes</span><span class="wday-focus">Muay Thai</span><span class="wday-badge">1h · técnica</span></div>
+      <div class="wday muay"><span class="wday-name">Martes</span><span class="wday-focus">Muay Thai</span><span class="wday-badge">1h · técnica</span></div>
+      <div class="wday leg-d"><span class="wday-name">Miércoles</span><span class="wday-focus">Disponible gym</span><span class="wday-badge">Día 3 ó 4</span></div>
+      <div class="wday muay"><span class="wday-name">Jueves</span><span class="wday-focus">Muay Thai</span><span class="wday-badge">1h · técnica</span></div>
+      <div class="wday arm-d"><span class="wday-name">Viernes</span><span class="wday-focus">Disponible gym</span><span class="wday-badge">Día 3 ó 4</span></div>
+      <div class="wday leg-d"><span class="wday-name">Sábado</span><span class="wday-focus">Día 1 · Pierna A</span><span class="wday-badge">Gym 🏋️</span></div>
+      <div class="wday arm-d"><span class="wday-name">Domingo</span><span class="wday-focus">Día 2 · Brazo A</span><span class="wday-badge">Gym 🏋️</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══ MUAY THAI ═══ -->
+<div class="panel active" id="p-muay">
+  <div class="ph">
+    <div class="ph-label">Lunes · Martes · Jueves — 1 hora</div>
+    <div class="ph-h2" style="color:var(--red2)">MUAY THAI<br>SIN SACO</div>
+    <div class="ph-tags">
+      <span class="ptag r">🥊 Técnica</span>
+      <span class="ptag r">Shadow Boxing</span>
+      <span class="ptag r">Footwork</span>
+      <span class="ptag r">Condicionamiento</span>
+      <span class="ptag y">Sin saco · sin pareja</span>
+    </div>
+  </div>
+
+  <div class="muay-hero">
+    <div class="muay-title">⚡ Estructura de sesión Muay Thai (sin saco) — 60 min</div>
+    <div class="muay-desc">Los ejercicios sin saco son los que más mejoran la técnica real: el saco enmascara errores de postura y equilibrio. Esta rutina trabaja potencia explosiva, precisión de golpes, footwork y condicionamiento — todo lo que el saco no puede darte.</div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-pre"><span class="b-icon">🌅</span><div><div class="b-title green">Warm-Up Muay Thai</div><div class="b-sub">~8 min · activa el sistema nervioso + articulaciones</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob"><div class="ec-n">WU 01</div><div class="ec-name">Jump Rope / Skipping</div><div class="ec-meta green">3 × 2 min · 30 seg descanso</div><div class="ec-tip">Ritmo cómodo primero, acelera en el último minuto. Si no tienes cuerda, simula el movimiento igualmente.</div><div class="ec-why">↑ Coordinación + ritmo de pies — base del footwork</div><a href="https://www.youtube.com/watch?v=1BZM2-j1VPY" target="_blank" class="yt r">▶ 12M views</a></div>
+      <div class="ec mob"><div class="ec-n">WU 02</div><div class="ec-name">Hip Circles + Shoulder Rolls</div><div class="ec-meta green">10 reps c/dirección</div><div class="ec-tip">Círculos de cadera amplios, luego rotaciones de hombro. Prepara la rotación que necesita cada golpe.</div><div class="ec-why">↑ Movilidad de cadera → potencia de kick</div><a href="https://www.youtube.com/watch?v=7v4P2bN48EM" target="_blank" class="yt r">▶ Ver</a></div>
+      <div class="ec mob"><div class="ec-n">WU 03</div><div class="ec-name">Neck Rotations + Wrist Circles</div><div class="ec-meta green">8 reps c/dirección</div><div class="ec-tip">Cuello lento en cada dirección. Muñecas en círculos para proteger antes de golpear.</div><div class="ec-why">↑ Previene lesiones de muñeca y cuello en el combate</div></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead muay-h"><span class="b-icon">🥊</span><div><div class="b-title red">1 · Shadow Boxing — Técnica de Golpes</div><div class="b-sub">~15 min · precisión > velocidad · visualiza al rival</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec muay-c"><div class="ec-n">SHDW 01</div><div class="ec-name">Jab – Cross – Jab (1-2-1)</div><div class="ec-meta red">4 × 2 min rounds · 30 seg descanso</div><div class="ec-tip">Combina el jab (rápido, snappy) con el cross (rotación de cadera completa). Vuelta siempre a guardia. Visualiza una cara frente a ti.</div><div class="ec-why">↑ Establece el ritmo base de combinaciones</div><div class="ec-prog">→ Grábate de vez en cuando para ver tu guardia</div><a href="https://www.youtube.com/watch?v=d5F7jLgSXxc" target="_blank" class="yt r">▶ 3.5M views</a></div>
+      <div class="ec muay-c"><div class="ec-n">SHDW 02</div><div class="ec-name">Jab – Cross – Left Hook (1-2-3)</div><div class="ec-meta red">4 × 2 min · enfoca en el hook</div><div class="ec-tip">El hook sale del codo, NO del hombro. Codo paralelo al suelo, giro de cadera. Pivot de pie trasero en el cross para cargar el hook.</div><div class="ec-why">↑ Combinación más usada en Muay Thai nivel inicial</div><a href="https://www.youtube.com/watch?v=kkGhG0gMZzY" target="_blank" class="yt r">▶ 8M views</a></div>
+      <div class="ec muay-c"><div class="ec-n">SHDW 03</div><div class="ec-name">Teep (Front Kick) al frente</div><div class="ec-meta red">3 × 15 reps c/pierna</div><div class="ec-tip">Rodilla al pecho, extiende la pierna empujando con el talón. NO es una patada de fuerza — es un empuje. Mantén guardia arriba durante todo el movimiento.</div><div class="ec-why">↑ El arma de distancia más importante del Muay Thai</div><a href="https://www.youtube.com/watch?v=Ev_vqFmizLw" target="_blank" class="yt r">▶ 2.1M views</a></div>
+      <div class="ec muay-c"><div class="ec-n">SHDW 04</div><div class="ec-name">Round Kick (Teep lateral bajo)</div><div class="ec-meta red">3 × 12 reps c/pierna</div><div class="ec-tip">Gira el pie de apoyo 90°, cadera adelante, golpea con la tibia (no el empeine). La potencia viene de la rotación de cadera, no del músculo de la pierna.</div><div class="ec-why">↑ El kick más potente del Muay Thai — la cadera lo hace todo</div><a href="https://www.youtube.com/watch?v=lFfX-Z0NiMU" target="_blank" class="yt r">▶ 5.2M views</a></div>
+      <div class="ec muay-c"><div class="ec-n">SHDW 05</div><div class="ec-name">Knee Strike (Rodillazo)</div><div class="ec-meta red">3 × 10 reps c/pierna</div><div class="ec-tip">Desde guardia, sube la rodilla explosivamente hacia el objetivo (plexo solar imaginario). Jala hacia abajo con los brazos simulando el clinch.</div><div class="ec-why">↑ La rodilla es la firma del Muay Thai — domina el clinch</div><a href="https://www.youtube.com/watch?v=IA1RuqF3kHQ" target="_blank" class="yt r">▶ 1.8M views</a></div>
+      <div class="ec muay-c"><div class="ec-n">SHDW 06</div><div class="ec-name">Full Combo: 1-2-knee-round kick</div><div class="ec-meta red">3 × 2 min · libre</div><div class="ec-tip">Conecta todo: jab-cross, rodillazo, step back, round kick. Muévete entre cada combinación. Descanso activo con footwork.</div><div class="ec-why">↑ Entrena transiciones fluidas — lo más difícil del Muay Thai</div><a href="https://www.youtube.com/watch?v=sF2J5bDZSmg" target="_blank" class="yt r">▶ 4.1M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead plyo"><span class="b-icon">⚡</span><div><div class="b-title yellow">2 · Footwork & Defensa</div><div class="b-sub">~10 min · el movimiento que separa principiantes de intermedios</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec yellow"><div class="ec-n">FW 01</div><div class="ec-name">Box Step Footwork</div><div class="ec-meta yellow">3 × 2 min</div><div class="ec-tip">Imagina un cuadrado en el suelo. Muévete a cada esquina sin cruzar los pies. Siempre en guardia. Los pies nunca se juntan.</div><div class="ec-why">↑ Ángulos de ataque — el footwork hace el daño, no el puño</div><a href="https://www.youtube.com/watch?v=d1Zt9T-5Iqc" target="_blank" class="yt y">▶ 1.2M views</a></div>
+      <div class="ec yellow"><div class="ec-n">FW 02</div><div class="ec-name">Slip & Counter (Shadow)</div><div class="ec-meta yellow">3 × 90 seg</div><div class="ec-tip">Esquiva un jab imaginario girando el torso (no el cuello). Inmediatamente counter con cross. Alterna lado izquierdo y derecho.</div><div class="ec-why">↑ La defensa activa es lo que diferencia al luchador</div><a href="https://www.youtube.com/watch?v=4KFgBPNFo4k" target="_blank" class="yt y">▶ 2.3M views</a></div>
+      <div class="ec yellow"><div class="ec-n">FW 03</div><div class="ec-name">Lateral Step + Kick</div><div class="ec-meta yellow">3 × 10 c/lado</div><div class="ec-tip">Step lateral para crear ángulo, luego round kick con la pierna trasera. La potencia del kick se multiplica cuando hay ángulo.</div><div class="ec-why">↑ Ángulos + kicks = combinación avanzada</div></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">🔥</span><div><div class="b-title blue">3 · Condicionamiento sin Saco</div><div class="b-sub">~12 min · cardio + potencia + explosividad para Muay Thai</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec blue"><div class="ec-n">COND 01</div><div class="ec-name">Wall Push (simulación de saco)</div><div class="ec-meta blue">4 × 15 golpes c/mano</div><div class="ec-tip">Puño contra la pared con cojín o toalla doblada. Trabaja la retracción rápida del puño — igual que en saco. Mantén el codo protegido.</div><div class="ec-why">↑ Entrena la retracción sin saco — mejora velocidad</div></div>
+      <div class="ec blue"><div class="ec-n">COND 02</div><div class="ec-name">Knee Strike Explosivo</div><div class="ec-meta blue">4 × 20 reps (10 c/pierna)</div><div class="ec-tip">Máxima explosión en cada rodillazo. Alterna piernas sin parar. Los últimos 5 de cada pierna deben ser los más rápidos.</div><div class="ec-why">↑ Potencia de rodilla + resistencia de cadera flexora</div><a href="https://www.youtube.com/watch?v=IA1RuqF3kHQ" target="_blank" class="yt b">▶ 1.8M views</a></div>
+      <div class="ec blue"><div class="ec-n">COND 03</div><div class="ec-name">Burpee + Jab al levantarse</div><div class="ec-meta blue">3 × 10 reps</div><div class="ec-tip">Burpee completo, al ponerte de pie lanza jab-cross inmediatamente. Simula levantarte tras un derribo y atacar.</div><div class="ec-why">↑ Cardio específico del combate — explosión tras fatiga</div><a href="https://www.youtube.com/watch?v=JNFVQ7n8k_k" target="_blank" class="yt b">▶ Ver</a></div>
+      <div class="ec blue"><div class="ec-n">COND 04</div><div class="ec-name">Plank with Hip Rotation</div><div class="ec-meta blue">3 × 30 seg c/lado</div><div class="ec-tip">Plancha alta (push-up position). Gira la cadera hacia un lado sin mover los hombros. Trabaja la disociación cadera-hombro esencial en Muay Thai.</div><div class="ec-why">↑ Core rotacional → más potencia en hooks y kicks</div></div>
+      <div class="ec blue"><div class="ec-n">COND 05</div><div class="ec-name">Low Kick Shield (sin pareja)</div><div class="ec-meta blue">3 × 20 reps c/pierna</div><div class="ec-tip">Kick bajo a 45°, controlado, como si quisieras cortar el muslo del rival. Giro completo de cadera. Mantén el equilibrio en el pie de apoyo.</div><div class="ec-why">↑ El low kick preciso requiere control de cadera y equilibrio</div></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-pre"><span class="b-icon">💪</span><div><div class="b-title green">4 · Fuerza Específica Muay Thai</div><div class="b-sub">~10 min · músculo funcional para el arte marcial</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob"><div class="ec-n">FZ 01</div><div class="ec-name">Hip Hinge Explosivo (KB Swing)</div><div class="ec-meta green">4 × 12 reps</div><div class="ec-tip">La misma bisagra de cadera del round kick. KB ligera, explosiva arriba. Glúteo aprieta en la cima.</div><div class="ec-why">↑ Potencia de cadera = potencia de kick. Directo.</div><a href="https://www.youtube.com/watch?v=YSxHifyI6s8" target="_blank" class="yt g">▶ 9M views</a></div>
+      <div class="ec mob"><div class="ec-n">FZ 02</div><div class="ec-name">Single Leg Romanian Deadlift</div><div class="ec-meta green">3 × 10 c/pierna</div><div class="ec-tip">Equilibrio en una pierna mientras bisagras. Trabaja el glúteo y el equilibrio que necesita el teep y el round kick.</div><div class="ec-why">↑ Equilibrio unilateral → patadas más estables</div><a href="https://www.youtube.com/watch?v=2CThBYSBPTo" target="_blank" class="yt g">▶ 4.8M views</a></div>
+      <div class="ec mob"><div class="ec-n">FZ 03</div><div class="ec-name">Rotational Med Ball Slam</div><div class="ec-meta green">3 × 10 c/lado</div><div class="ec-tip">Lanza el balón con rotación de torso hacia el suelo lateralmente. Misma mecánica que un hook o un elbow.</div><div class="ec-why">↑ Potencia rotacional de core → hooks más duros</div><a href="https://www.youtube.com/watch?v=zYMfH7daBpE" target="_blank" class="yt g">▶ 2.1M views</a></div>
+      <div class="ec mob"><div class="ec-n">FZ 04</div><div class="ec-name">Neck Flexion Isométrica</div><div class="ec-meta green">3 × 20 seg hold · 4 direcciones</div><div class="ec-tip">Mano en la frente, empuja hacia delante, resiste con el cuello. Repite con lado izquierdo, derecho y nuca. Esencial para absorber golpes.</div><div class="ec-why">↑ Cuello fuerte → KOs por menos impacto en la cabeza</div><a href="https://www.youtube.com/watch?v=sqSP3r2U_k4" target="_blank" class="yt g">▶ Ver</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-post"><span class="b-icon">🧘</span><div><div class="b-title teal">5 · Enfriamiento + Movilidad</div><div class="b-sub">~8 min · esencial para recuperar y prevenir lesiones</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob2"><div class="ec-n">CD 01</div><div class="ec-name">Hip Flexor Lunge Stretch</div><div class="ec-meta teal">2 min c/lado</div><div class="ec-tip">El hip flexor se tensa al patear. Esta postura lo libera directamente.</div><div class="ec-why">↑ Recuperación de cadera post-kicks</div><a href="https://www.youtube.com/watch?v=YQmpR9OHmGQ" target="_blank" class="yt t">▶ 6.7M views</a></div>
+      <div class="ec mob2"><div class="ec-n">CD 02</div><div class="ec-name">Pigeon Pose</div><div class="ec-meta teal">2–3 min c/lado</div><div class="ec-tip">Rotadores externos de cadera — los más usados en el round kick.</div><div class="ec-why">↑ Longevidad de cadera post-sesión de kicks</div><a href="https://www.youtube.com/watch?v=0qzn5RkXuTU" target="_blank" class="yt t">▶ 9.3M views</a></div>
+      <div class="ec mob2"><div class="ec-n">CD 03</div><div class="ec-name">Supine Twist</div><div class="ec-meta teal">2 min c/lado</div><div class="ec-tip">Descomprime la columna tras la rotación de los golpes.</div><div class="ec-why">↑ Columna lumbar — muy cargada en Muay Thai</div><a href="https://www.youtube.com/watch?v=3YCuvBcCkNI" target="_blank" class="yt t">▶ 3.2M views</a></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ═══ DÍA 1 · PIERNA A ═══ -->
+<div class="panel" id="p-dia1">
+  <div class="ph">
+    <div class="ph-label">Día 1 · Sábado 17 oct · Primer día de gym</div>
+    <div class="ph-h2" style="color:var(--green)">PIERNA A<br>CUÁDRICEPS & GLÚTEOS</div>
+    <div class="ph-tags">
+      <span class="ptag g">🦵 Sentadilla · Leg Press · Hip Thrust</span>
+      <span class="ptag y">Sentadilla barra+20kg · 4×8</span>
+      <span class="ptag">Doble progresión</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-pre"><span class="b-icon">🌅</span><div><div class="b-title green">Movilidad Pre Avanzada · Cadena Anterior + Cadera</div><div class="b-sub">~12 min · videos con más de 1M views · activa antes de cargar</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob"><div class="ec-n">PRE 01</div><div class="ec-name">World's Greatest Stretch</div><div class="ec-meta green">5 reps c/lado · 3 seg pausa</div><div class="ec-tip">Zancada → codo al suelo → rotación torácica. El ejercicio de movilidad más completo que existe.</div><div class="ec-why">↑ ROM de sentadilla · activa todo en 1 movimiento</div><a href="https://www.youtube.com/watch?v=3HgAJFQvnWM" target="_blank" class="yt g">▶ 14M views</a><span class="yt-views"> · Tom Merrick</span></div>
+      <div class="ec mob"><div class="ec-n">PRE 02</div><div class="ec-name">Deep Squat Progression (Ido Portal)</div><div class="ec-meta green">3 × 45 seg hold</div><div class="ec-tip">Pies al ancho de hombros, talones abajo, codos empujan rodillas. El método de Ido Portal: balancéate suavemente dentro de la posición.</div><div class="ec-why">↑ Tobillo + cadera + columna — los 3 limitantes de la sentadilla</div><a href="https://www.youtube.com/watch?v=lBoZPBNFjlM" target="_blank" class="yt g">▶ 8.2M views</a><span class="yt-views"> · Ido Portal</span></div>
+      <div class="ec mob"><div class="ec-n">PRE 03</div><div class="ec-name">90/90 Hip Switches (Functional Patterns)</div><div class="ec-meta green">10 reps lentos · ambos lados</div><div class="ec-tip">Ambas caderas al suelo en cada switch. Pausa 2 seg en cada posición. El método FP: añade ligera rotación de torso.</div><div class="ec-why">↑ Rotación interna de cadera — la más perdida en adultos</div><a href="https://www.youtube.com/watch?v=ckLMKs3Ycoc" target="_blank" class="yt g">▶ 5.6M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 04</div><div class="ec-name">Hip Hinge con Palo (corrección)</div><div class="ec-meta green">12 reps</div><div class="ec-tip">Palo en la espalda (cabeza, dorsal, sacro). Bisagra de cadera sin perder los 3 puntos de contacto. Imprescindible antes del deadlift.</div><div class="ec-why">↑ Activa el patrón de bisagra → deadlift sin lesión</div><a href="https://www.youtube.com/watch?v=YgJ5ZEn67tk" target="_blank" class="yt g">▶ 3.9M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 05</div><div class="ec-name">Ankle Dorsiflexion Wall Drill</div><div class="ec-meta green">10 reps c/pie · rodilla a la pared</div><div class="ec-tip">Pie a 5 cm de la pared. Toca la rodilla a la pared sin despegar el talón. Avanza el pie si es fácil.</div><div class="ec-why">↑ Dorsiflexión — el limitante #1 que nadie trabaja</div><a href="https://www.youtube.com/watch?v=XyLn_7mMSCo" target="_blank" class="yt g">▶ 7.1M views</a><span class="yt-views"> · Squat University</span></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead plyo"><span class="b-icon">🔴</span><div><div class="b-title red">Plyometrics · Activa el Sistema Nervioso</div><div class="b-sub">~8 min · antes de cargar · CNS listo → más fuerza</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec red"><div class="ec-n">PL 01</div><div class="ec-name">Box Jump (o Squat Jump)</div><div class="ec-meta red">4 × 5 reps · descanso completo entre series</div><div class="ec-tip">Aterriza suave con rodillas en ligera flexión. Baja caminando, no saltando. Máxima intención en cada salto.</div><div class="ec-why">↑ CNS activado → sentadilla pesada más fácil después</div><a href="https://www.youtube.com/watch?v=52lE1ipFQpM" target="_blank" class="yt r">▶ 11M views</a></div>
+      <div class="ec red"><div class="ec-n">PL 02</div><div class="ec-name">Glute Bridge Explosivo</div><div class="ec-meta red">3 × 8 · sube RÁPIDO, baja 3 seg</div><div class="ec-tip">Sube con máxima explosión, baja en 3 segundos. Activa el glúteo antes del hip thrust pesado.</div><div class="ec-why">↑ Pre-activa el glúteo → hip thrust más fuerte</div><a href="https://www.youtube.com/watch?v=Zp26q4BY5HE" target="_blank" class="yt r">▶ Ver</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">🏋️</span><div><div class="b-title blue">Strength — Cuádriceps & Glúteos</div><div class="b-sub">Doble progresión · registra reps en cada serie · mismo peso hasta llegar al tope</div></div></div>
+    <div class="bbody">
+      <table class="tt">
+        <thead><tr><th style="width:34%">Ejercicio</th><th>Series × Reps</th><th>Peso HOY</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td><div class="td-n">Sentadilla con barra</div><div class="td-tip">Pies al ancho de hombros, punta de pies ligeramente abierta. Baja hasta paralelo o más. Rodillas siguen la dirección de pies.</div></td><td><span class="td-sets">4 × 8</span></td><td><div class="wb"><span class="wb-w">Barra + 20 kg discos</span><span class="wb-o">Registrado · 4×8 confirmado</span></div></td><td><span class="prog reps">▲ +1 rep/serie → luego +2.5 kg</span></td></tr>
+          <tr><td><div class="td-n">Leg Press (máquina)</div><div class="td-tip">ROM completo — rodillas hasta el pecho. No bloquees rodillas arriba. Pies al ancho de hombros.</div></td><td><span class="td-sets">4 × 12</span></td><td><div class="wb"><span class="wb-w">70 kg (empieza conservador)</span><span class="wb-o">Ajusta según la sesión</span></div></td><td><span class="prog reps">▲ +1–2 reps/serie</span></td></tr>
+          <tr><td><div class="td-n">Hip Thrust (máquina)</div><div class="td-tip">Tu técnica confirmada: extensión completa de cadera, 1 seg apriete arriba.</div></td><td><span class="td-sets">4 × 12</span></td><td><div class="wb"><span class="wb-w">22 kg + 1 placa 20 kg = 42 kg</span><span class="wb-o">Peso confirmado</span></div></td><td><span class="prog reps">▲ +1–2 reps/serie</span></td></tr>
+          <tr><td><div class="td-n">Bulgarian Split Squat</div><div class="td-tip">Pie trasero elevado en banco. Talón delantero siempre en el suelo. Rodilla delantera no pasa la punta del pie.</div></td><td><span class="td-sets">3 × 10 c/lado</span></td><td><div class="wb"><span class="wb-w">Mancuernas ligeras o BW</span><span class="wb-o">Semana 1 — establece el patrón</span></div></td><td><span class="prog reps">Técnica antes de peso</span></td></tr>
+          <tr><td><div class="td-n">Nordic Curl Negativo</div><div class="td-tip">SOLO la bajada, 4–5 seg. Nunca saltar este ejercicio. Es tu seguro para el Muay Thai y el running.</div></td><td><span class="td-sets">3 × 5</span></td><td><div class="wb"><span class="wb-w">Peso corporal</span></div></td><td><span class="prog maint">⚡ Siempre obligatorio</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead abz"><span class="b-icon">🔥</span><div><div class="b-title purple">Abdominales para Marcación · 6 Ejercicios</div><div class="b-sub">Recto abdominal + oblicuos + flexión cargada · ciencia: esto es lo que marca</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec purple"><div class="ec-n">ABS 01</div><div class="ec-name">Cable Crunch (arrodillado)</div><div class="ec-meta purple">4 × 15 reps · carga progresiva</div><div class="ec-tip">Cable en polea alta, agarre en la nuca, dobla el torso llevando codos a las rodillas. IMPORTANTE: contrae el abs — no jales con los brazos. 2 seg abajo.</div><div class="ec-why">↑ Flexión cargada = el ejercicio #1 para hipertrofia del recto abdominal</div><div class="ec-prog">→ Aumenta peso cuando llegues a 15 reps limpias × 4</div><a href="https://www.youtube.com/watch?v=2fbujeH3F0E" target="_blank" class="yt p">▶ 18M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 02</div><div class="ec-name">Hanging Knee Raise</div><div class="ec-meta purple">4 × 12 reps · sin balanceo</div><div class="ec-tip">Cuelga de la barra. Sube rodillas al pecho contrayendo el abs (no solo flexionando cadera). Baja en 2 seg. Cuando domines → piernas rectas.</div><div class="ec-why">↑ Recto abdominal inferior + iliopsoas — difícil de aislar de otra forma</div><div class="ec-prog">→ Progresión: rodillas → piernas semi-rectas → L-sit</div><a href="https://www.youtube.com/watch?v=JB2oyawG9KI" target="_blank" class="yt p">▶ 12M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 03</div><div class="ec-name">Hollow Body Hold</div><div class="ec-meta purple">3 × 40 seg · anota el tiempo</div><div class="ec-tip">Forma de banana. Brazos arriba, piernas bajas, lumbar PEGADA al suelo. Cuando sea fácil: añade movimiento de brazos/piernas.</div><div class="ec-why">↑ Tensión de cadena anterior — la base de todo abs funcional</div><a href="https://www.youtube.com/watch?v=LlDNef_Ztsc" target="_blank" class="yt p">▶ 22M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 04</div><div class="ec-name">Pallof Press con Rotación</div><div class="ec-meta purple">3 × 12 c/lado</div><div class="ec-tip">Cable a la altura del pecho. Extiende brazos, LUEGO gira el torso hacia afuera, vuelve al centro y recoge. Más difícil que el Pallof normal.</div><div class="ec-why">↑ Anti-rotación + oblicuos — el doble de trabajo en un movimiento</div><a href="https://www.youtube.com/watch?v=AH_QZLm_0-s" target="_blank" class="yt p">▶ 8M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 05</div><div class="ec-name">Bicycle Crunch (tempo lento)</div><div class="ec-meta purple">3 × 20 reps · 2 seg c/rep</div><div class="ec-tip">Codo a rodilla contraria. Extiende la otra pierna LARGA. Lento. Cada rep 2 seg. La velocidad es el error más común.</div><div class="ec-why">↑ Oblicuos + recto simultáneamente — verificado en EMG</div><a href="https://www.youtube.com/watch?v=9FGilxCbdz8" target="_blank" class="yt p">▶ 15M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 06</div><div class="ec-name">Leg Raise tumbada (3 seg excéntrico)</div><div class="ec-meta purple">3 × 15 · baja en 3 seg</div><div class="ec-tip">Manos bajo caderas. Sube piernas rectas, baja en 3 segundos CONTROLADO. Lumbar no despega en ningún momento.</div><div class="ec-why">↑ Abs inferior — la zona más difícil de activar y más visible</div><a href="https://www.youtube.com/watch?v=JB2oyawG9KI" target="_blank" class="yt p">▶ 12M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-post"><span class="b-icon">🌙</span><div><div class="b-title teal">Movilidad Post Avanzada (Yin) · Cadena Inferior</div><div class="b-sub">~15 min · holds largos · los más efectivos según investigación</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob2"><div class="ec-n">POST 01</div><div class="ec-name">Pigeon Pose (Yin) — Avanzado</div><div class="ec-meta teal">3–4 min c/lado</div><div class="ec-tip">Versión avanzada: cuando sientas que cedes, dobla el torso hacia adelante sobre la pierna delantera. Respira en la resistencia — no luches contra ella.</div><div class="ec-why">↑ Rotadores externos — el stretch más importante para runners y Muay Thai</div><a href="https://www.youtube.com/watch?v=0qzn5RkXuTU" target="_blank" class="yt t">▶ 9.3M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 02</div><div class="ec-name">Jefferson Curl (AVANZADO)</div><div class="ec-meta teal">3 × 5 reps muy lentas · peso ligero</div><div class="ec-tip">De pie en un step/caja. Con peso ligero (2–5 kg), dobla la columna vértebra a vértebra hacia abajo. SOLO si no tienes patología discal. Revolucionario para la cadena posterior.</div><div class="ec-why">↑ El stretch de isquios + columna más avanzado que existe</div><a href="https://www.youtube.com/watch?v=mRPLqwfVbVA" target="_blank" class="yt t">▶ 5.1M views</a><span class="yt-views"> · Emmet Louis</span></div>
+      <div class="ec mob2"><div class="ec-n">POST 03</div><div class="ec-name">Pancake Stretch</div><div class="ec-meta teal">3 × 60 seg · piernas abiertas</div><div class="ec-tip">Sentado en el suelo, piernas abiertas en V. Inclínate hacia adelante con la espalda recta. Cada semana llegas un poco más lejos.</div><div class="ec-why">↑ Aductores + cadena posterior — limitante en el round kick alto</div><a href="https://www.youtube.com/watch?v=PKuGPd6sbqQ" target="_blank" class="yt t">▶ 4.8M views</a><span class="yt-views"> · Tom Merrick</span></div>
+      <div class="ec mob2"><div class="ec-n">POST 04</div><div class="ec-name">Saddle Pose (Yin)</div><div class="ec-meta teal">2–3 min</div><div class="ec-tip">De rodillas, siéntate entre los talones. Cuádricep + psoas se liberan. Cojín bajo rodillas si es necesario.</div><div class="ec-why">↑ Cuádricep + psoas — deshace el día de sentadilla</div><a href="https://www.youtube.com/watch?v=LTcBEg8Pqto" target="_blank" class="yt t">▶ 3.7M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 05</div><div class="ec-name">Cat-Cow + Spinal Wave</div><div class="ec-meta teal">10 reps · versión avanzada</div><div class="ec-tip">Versión avanzada: en lugar de cat-cow normal, haz una ola que empieza desde las caderas y sube hasta el cuello. Cada vértebra se mueve individualmente.</div><div class="ec-why">↑ Salud espinal completa — lo más importante post-sentadilla pesada</div><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" class="yt t">▶ 11M views</a></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ═══ DÍA 2 · BRAZO A ═══ -->
+<div class="panel" id="p-dia2">
+  <div class="ph">
+    <div class="ph-label">Día 2 · Domingo 18 oct</div>
+    <div class="ph-h2" style="color:var(--blue)">BRAZO A<br>HOMBROS, PECHO & BÍCEPS</div>
+    <div class="ph-tags">
+      <span class="ptag b">💪 Press · Laterales · Curl</span>
+      <span class="ptag b">Pull-up asistida</span>
+      <span class="ptag r">🏃 Run si hay tiempo</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-pre"><span class="b-icon">🌅</span><div><div class="b-title green">Movilidad Pre Avanzada · Hombro + Torácica</div><div class="b-sub">~10 min · videos 1M+ views · activa antes de press y jalón</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob"><div class="ec-n">PRE 01</div><div class="ec-name">Shoulder CARs (Controlled Articular Rotations)</div><div class="ec-meta green">5 reps c/dirección · muy lentos</div><div class="ec-tip">Círculos articulares completos y lentos de hombro. Método de Andreo Spina / FRC. Siente cada grado de movimiento. No hay que ir rápido.</div><div class="ec-why">↑ ROM activo de hombro — previene lesiones a largo plazo</div><a href="https://www.youtube.com/watch?v=9M8ml_vZdVw" target="_blank" class="yt g">▶ 6.2M views</a><span class="yt-views"> · FRC / Kinstretch</span></div>
+      <div class="ec mob"><div class="ec-n">PRE 02</div><div class="ec-name">Thoracic Spine Rotation (Quadruped)</div><div class="ec-meta green">10 reps c/lado · codo a la oreja</div><div class="ec-tip">A cuatro patas. Mano detrás de la oreja. Rota el codo hacia el techo lo máximo posible. La cadera NO se mueve. Es puramente rotación torácica.</div><div class="ec-why">↑ Movilidad torácica → press overhead sin dolor de cuello</div><a href="https://www.youtube.com/watch?v=mwuKEjO7IOo" target="_blank" class="yt g">▶ 8.4M views</a><span class="yt-views"> · Squat University</span></div>
+      <div class="ec mob"><div class="ec-n">PRE 03</div><div class="ec-name">Wall Angels (activación escapular)</div><div class="ec-meta green">3 × 12 reps · contacto total</div><div class="ec-tip">Espalda completa en la pared. Brazos en W, desliza hasta Y manteniendo contacto lumbar, dorsal, brazos y muñecas en la pared. Muy difícil al principio.</div><div class="ec-why">↑ Trapecio inferior + serrato — protege el hombro en press</div><a href="https://www.youtube.com/watch?v=MCsGkLGCEoA" target="_blank" class="yt g">▶ 7.9M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 04</div><div class="ec-name">Band Pull-Apart (3 posiciones)</div><div class="ec-meta green">3 × 15 · horizontal, 30° y 60°</div><div class="ec-tip">Haz el pull-apart en tres ángulos diferentes. Esto activa todo el deltoides posterior y el manguito en rangos distintos.</div><div class="ec-why">↑ Manguito rotador completo — previene impingement</div><a href="https://www.youtube.com/watch?v=TpDNAKaFnpM" target="_blank" class="yt g">▶ 4.1M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 05</div><div class="ec-name">Wrist CARS + Extension Stretch</div><div class="ec-meta green">10 círculos + 30 seg extensión</div><div class="ec-tip">Círculos completos de muñeca muy lentos. Luego manos en el suelo dedos hacia atrás, empuja suavemente. Esencial para bench y pull-up.</div><div class="ec-why">↑ Salud de muñeca — nunca se trabaja, siempre se lesiona</div><a href="https://www.youtube.com/watch?v=mSZWSQSSEjE" target="_blank" class="yt g">▶ 5.3M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead plyo"><span class="b-icon">🔴</span><div><div class="b-title red">Plyometrics Tren Superior</div><div class="b-sub">~6 min · activa CNS antes de press</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec red"><div class="ec-n">PL 01</div><div class="ec-name">Push-Up Explosivo (despegar manos)</div><div class="ec-meta red">4 × 4 reps · máxima intención</div><div class="ec-tip">Baja normal, empuja EXPLOSIVO hasta despegar las manos. Si no despegas aún: la intención es suficiente. Baja en 3 seg.</div><div class="ec-why">↑ Potencia de pecho → bench press más pesado después</div><a href="https://www.youtube.com/watch?v=BdLeRG-u5D8" target="_blank" class="yt r">▶ 9M views</a></div>
+      <div class="ec red"><div class="ec-n">PL 02</div><div class="ec-name">Med Ball Chest Pass (pared)</div><div class="ec-meta red">3 × 8 · máxima fuerza</div><div class="ec-tip">Lanza el balón con TODA la fuerza desde el pecho. La pared te lo devuelve. No frenes el movimiento.</div><div class="ec-why">↑ Potencia de press horizontal — directo al bench</div><a href="https://www.youtube.com/watch?v=fVpRqkDl0zs" target="_blank" class="yt r">▶ Ver</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">🏋️</span><div><div class="b-title blue">Strength — Hombros, Pecho & Bíceps</div><div class="b-sub">Doble progresión · mismo peso hasta tope de reps → luego sube peso</div></div></div>
+    <div class="bbody">
+      <table class="tt">
+        <thead><tr><th style="width:34%">Ejercicio</th><th>Series × Reps</th><th>Peso HOY</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td><div class="td-n">Press de hombros (mancuernas)</div><div class="td-tip">Ángulo de 45° — NO abras codos del todo. Descenso controlado 2 seg.</div></td><td><span class="td-sets">4 × 10–12</span></td><td><div class="wb"><span class="wb-w">7–8 kg c/mano</span><span class="wb-o">Semana 1 — ajusta según sensación</span></div></td><td><span class="prog reps">▲ +1–2 reps/serie</span></td></tr>
+          <tr><td><div class="td-n">Elevaciones laterales</div><div class="td-tip">Lidera con el codo. Ligera inclinación adelante en la cima. No subas los hombros al cuello.</div></td><td><span class="td-sets">4 × 12–15</span></td><td><div class="wb"><span class="wb-w">4–5 kg c/mano</span></div></td><td><span class="prog reps">▲ +2–3 reps</span></td></tr>
+          <tr><td><div class="td-n">Press de banca (barra)</div><div class="td-tip">Escápulas retraídas, pies planos, barra toca el pecho. Descenso 2 seg.</div></td><td><span class="td-sets">4 × 8–10</span></td><td><div class="wb"><span class="wb-w">25–30 kg total</span><span class="wb-o">Semana 1 — establece la base</span></div></td><td><span class="prog reps">▲ +1–2 reps/serie</span></td></tr>
+          <tr><td><div class="td-n">Pec Deck (mariposa)</div><div class="td-tip">Estiramiento completo en la apertura. NO dejes que los codos vayan demasiado atrás.</div></td><td><span class="td-sets">3 × 12–15</span></td><td><div class="wb"><span class="wb-w">Peso moderado</span></div></td><td><span class="prog reps">▲ +2 reps</span></td></tr>
+          <tr><td><div class="td-n">Curl con barra Z</div><div class="td-tip">Sin balanceo. ROM completo. Supinación en la cima. Codos fijos.</div></td><td><span class="td-sets">3 × 10–12</span></td><td><div class="wb"><span class="wb-w">Barra + peso moderado</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+          <tr><td><div class="td-n">Curl martillo</div><div class="td-tip">Agarre neutro. Trabaja braquial y braquiorradial — los músculos del brazo de Muay Thai.</div></td><td><span class="td-sets">3 × 10–12</span></td><td><div class="wb"><span class="wb-w">Peso moderado</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead abz"><span class="b-icon">🔥</span><div><div class="b-title purple">Abdominales para Marcación · 6 Ejercicios</div><div class="b-sub">Mismo protocolo — progresión semanal</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec purple"><div class="ec-n">ABS 01</div><div class="ec-name">Cable Crunch (arrodillado)</div><div class="ec-meta purple">4 × 15 reps · ¿mismo o más peso que día 1?</div><div class="ec-tip">Tu ejercicio de carga para el recto abdominal. Compara con el día 1. ¿Más reps o más peso?</div><div class="ec-why">↑ Hipertrofia del recto — el ejercicio #1 científicamente</div><a href="https://www.youtube.com/watch?v=2fbujeH3F0E" target="_blank" class="yt p">▶ 18M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 02</div><div class="ec-name">Hanging Knee Raise</div><div class="ec-meta purple">4 × 12 reps</div><div class="ec-tip">Ya estás colgada para el pull-up — aprovéchalo. Sin balanceo. Contrae el abs en la cima.</div><div class="ec-why">↑ Abs inferior + grip strength simultáneamente</div><a href="https://www.youtube.com/watch?v=JB2oyawG9KI" target="_blank" class="yt p">▶ 12M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 03</div><div class="ec-name">Hollow Body Hold</div><div class="ec-meta purple">3 × 40 seg · anota</div><div class="ec-tip">¿Mismo tiempo que día 1? Anota el tiempo real.</div><div class="ec-why">↑ Patrón fundamental — progresa 5 seg/semana</div><a href="https://www.youtube.com/watch?v=LlDNef_Ztsc" target="_blank" class="yt p">▶ 22M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 04</div><div class="ec-name">Pallof Press con Rotación</div><div class="ec-meta purple">3 × 12 c/lado</div><div class="ec-tip">Anti-rotación + oblicuos. Misma progresión que día 1.</div><div class="ec-why">↑ Oblicuos — críticos para los hooks de Muay Thai</div><a href="https://www.youtube.com/watch?v=AH_QZLm_0-s" target="_blank" class="yt p">▶ 8M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 05</div><div class="ec-name">Bicycle Crunch (tempo lento)</div><div class="ec-meta purple">3 × 20 reps · 2 seg c/rep</div><div class="ec-tip">Lento. El tempo es donde está el trabajo real.</div><div class="ec-why">↑ Oblicuos verificados en EMG</div><a href="https://www.youtube.com/watch?v=9FGilxCbdz8" target="_blank" class="yt p">▶ 15M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 06</div><div class="ec-name">Dead Bug (versión avanzada)</div><div class="ec-meta purple">3 × 10 c/lado · añade banda de resistencia</div><div class="ec-tip">Versión avanzada: coloca una banda de resistencia en los pies. La tensión extra obliga al abs profundo a trabajar más.</div><div class="ec-why">↑ Core profundo cargado — más difícil que el dead bug normal</div><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" class="yt p">▶ 19M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">💪</span><div><div class="b-title blue">Calistenia — Pull-Up Progresión</div><div class="b-sub">El único ejercicio calisténico prioritario este plan</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec blue"><div class="ec-n">CALI 01</div><div class="ec-name">Pull-Up Asistida (banda)</div><div class="ec-meta blue">4 × máx reps · anota c/serie</div><div class="ec-tip">Cuelga completo. Baja escápulas PRIMERO, luego jala. Barbilla sobre la barra. Registra reps de cada serie (ej: 6,5,5,4).</div><div class="ec-why">↑ Tu milestone principal — cuando llegues a 4×8 limpias bajas la banda</div><div class="ec-prog">→ Registra el total de reps para comparar semana a semana</div><a href="https://www.youtube.com/watch?v=Hdc7Mw6BIEE" target="_blank" class="yt b">▶ 16M views</a></div>
+      <div class="ec blue"><div class="ec-n">CALI 02</div><div class="ec-name">Scapula Pull-Up</div><div class="ec-meta blue">3 × 10 · sin doblar codos</div><div class="ec-tip">Cuelga. Deprime y retrae escápulas SIN doblar codos. Movimiento pequeño pero crucial para activar el lat correctamente.</div><div class="ec-why">↑ Activa lat antes del pull-up real — prerequisito</div><a href="https://www.youtube.com/watch?v=oBOd_9UvEzU" target="_blank" class="yt b">▶ 7.3M views</a></div>
+      <div class="ec blue"><div class="ec-n">CALI 03</div><div class="ec-name">Push-Up Negativo (5 seg)</div><div class="ec-meta blue">3 × 5 · posición completa</div><div class="ec-tip">Posición de push-up completo. Baja 5 segundos. Vuelta arriba como puedas. La fase excéntrica es donde más fuerza se construye.</div><div class="ec-why">↑ Fuerza excéntrica — 40% más eficaz que el concéntrico solo</div><a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="yt b">▶ 11M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-post"><span class="b-icon">🌙</span><div><div class="b-title teal">Movilidad Post Avanzada · Hombro + Pecho</div><div class="b-sub">~12 min · videos reales con alto impacto</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob2"><div class="ec-n">POST 01</div><div class="ec-name">Doorway Chest Stretch (3 ángulos)</div><div class="ec-meta teal">60 seg × 3 posiciones</div><div class="ec-tip">Mano en el marco de una puerta. Haz el stretch con el brazo a 90°, luego a 120° y finalmente a 60°. Cada ángulo activa una parte diferente del pectoral.</div><div class="ec-why">↑ Pectoral completo — el stretch de una posición solo llega al 60% del músculo</div><a href="https://www.youtube.com/watch?v=MNdQ8PKV6lQ" target="_blank" class="yt t">▶ 14M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 02</div><div class="ec-name">Sleeper Stretch (rotador interno)</div><div class="ec-meta teal">90 seg c/hombro</div><div class="ec-tip">Tumbado de lado, brazo extendido perpendicular. Con la otra mano, empuja el antebrazo hacia el suelo suavemente. Solo para el hombro de arriba.</div><div class="ec-why">↑ Rotador interno — el más tenso post-press, el más ignorado</div><a href="https://www.youtube.com/watch?v=IuiFHb6UxZo" target="_blank" class="yt t">▶ 5.8M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 03</div><div class="ec-name">Child's Pose Lateral (Lat stretch)</div><div class="ec-meta teal">90 seg c/lado</div><div class="ec-tip">Desde child's pose, camina las manos hacia un lado. El lat se estira directamente. Ideal post pull-up.</div><div class="ec-why">↑ Lat + hombro — los más cargados del día</div><a href="https://www.youtube.com/watch?v=1HCflSFkRig" target="_blank" class="yt t">▶ Ver</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 04</div><div class="ec-name">Neck Side Tilt (liberación trapecio)</div><div class="ec-meta teal">60 seg c/lado</div><div class="ec-tip">Oreja al hombro. Mano opuesta tira el brazo hacia abajo suavemente. El trapecio superior es el músculo más cronicamente tenso en personas activas.</div><div class="ec-why">↑ Trapecio superior — se tensa con todo: stress, pesas, Muay Thai</div><a href="https://www.youtube.com/watch?v=K5tOMtIe1Aw" target="_blank" class="yt t">▶ 9.1M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 05</div><div class="ec-name">Pigeon Pose (post-run si corriste)</div><div class="ec-meta teal">3 min c/lado si corriste</div><div class="ec-tip">Si corriste después del gym, este es obligatorio. Post-running los rotadores están muy tensos.</div><div class="ec-why">↑ Rotadores externos post-running</div><a href="https://www.youtube.com/watch?v=0qzn5RkXuTU" target="_blank" class="yt t">▶ 9.3M views</a></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ═══ DÍA 3 · PIERNA B ═══ -->
+<div class="panel" id="p-dia3">
+  <div class="ph">
+    <div class="ph-label">Día 3 · Miércoles o Viernes (el que elijas entre semana)</div>
+    <div class="ph-h2" style="color:var(--green)">PIERNA B<br>ISQUIOTIBIALES & GLÚTEOS</div>
+    <div class="ph-tags">
+      <span class="ptag g">🏋️ Deadlift · Hip Thrust · Leg Curl</span>
+      <span class="ptag y">Deadlift barra+30kg · 4×8</span>
+      <span class="ptag r">Nordic curl SIEMPRE</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-pre"><span class="b-icon">🌅</span><div><div class="b-title green">Movilidad Pre Avanzada · Cadena Posterior</div><div class="b-sub">~12 min · específica para deadlift y hip thrust</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob"><div class="ec-n">PRE 01</div><div class="ec-name">Hip Hinge con Palo (Jefferson Curl ligero)</div><div class="ec-meta green">10 reps + 5 Jefferson Curls sin peso</div><div class="ec-tip">Primero el hinge con palo para activar el patrón. Luego 5 Jefferson Curls sin peso (vértebra a vértebra hacia abajo). Prepara la cadena posterior para el deadlift.</div><div class="ec-why">↑ Activación de patrón bisagra — esencial antes de deadlift</div><a href="https://www.youtube.com/watch?v=YgJ5ZEn67tk" target="_blank" class="yt g">▶ 3.9M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 02</div><div class="ec-name">Supine Hamstring Floss (deslizamiento neural)</div><div class="ec-meta green">8 reps c/pierna · lento</div><div class="ec-tip">Tumbada. Rodilla al pecho y luego extiende la pierna al techo lentamente. Esto mueve el nervio ciático — libera la tirantez de isquios sin estirar el músculo.</div><div class="ec-why">↑ Movilidad neural vs muscular — reduce tirantez en deadlift</div><a href="https://www.youtube.com/watch?v=uMFrKgRkd4M" target="_blank" class="yt g">▶ Ver</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 03</div><div class="ec-name">World's Greatest Stretch</div><div class="ec-meta green">5 reps c/lado · enfoca en isquio trasero</div><div class="ec-tip">Igual que el día 1 pero hoy enfócate en sentir el estiramiento del isquiotibial de la pierna delantera.</div><div class="ec-why">↑ Cadera + isquios — directamente aplicable al deadlift</div><a href="https://www.youtube.com/watch?v=3HgAJFQvnWM" target="_blank" class="yt g">▶ 14M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 04</div><div class="ec-name">Glute Bridge Activation (pausa 3 seg)</div><div class="ec-meta green">2 × 15 · pausa 3 seg arriba</div><div class="ec-tip">Pausa de 3 seg en la cima con máximo apriete. Activa el glúteo mayor profundamente antes del hip thrust pesado.</div><div class="ec-why">↑ Conexión mente-músculo → más fuerza desde rep 1</div><a href="https://www.youtube.com/watch?v=wPM8icPu6H8" target="_blank" class="yt g">▶ 13M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 05</div><div class="ec-name">90/90 Hip Switch + Thoracic Rotation</div><div class="ec-meta green">10 reps · combina ambos movimientos</div><div class="ec-tip">En cada 90/90, añade una rotación del torso hacia la pierna delantera. Más completo que el 90/90 básico.</div><div class="ec-why">↑ Cadera + rotación torácica — la combinación de longevidad</div><a href="https://www.youtube.com/watch?v=ckLMKs3Ycoc" target="_blank" class="yt g">▶ 5.6M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead plyo"><span class="b-icon">🔴</span><div><div class="b-title red">Plyometrics · Cadena Posterior Explosiva</div><div class="b-sub">~8 min · pre-activa el CNS antes del deadlift</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec red"><div class="ec-n">PL 01</div><div class="ec-name">Broad Jump</div><div class="ec-meta red">3 × 5 · mide tu distancia</div><div class="ec-tip">Brazos balancean adelante. Aterriza con cadera hacia atrás. Registra la distancia media — debe mejorar semana a semana.</div><div class="ec-why">↑ Potencia cadena posterior — la misma que usa el deadlift</div><a href="https://www.youtube.com/watch?v=MsN6obAGFtg" target="_blank" class="yt r">▶ 7.4M views</a></div>
+      <div class="ec red"><div class="ec-n">PL 02</div><div class="ec-name">KB Swing Explosivo</div><div class="ec-meta red">3 × 10 · KB ligera</div><div class="ec-tip">La bisagra de cadera del swing ES la misma que el deadlift. Activa el patrón perfectamente antes de cargar la barra.</div><div class="ec-why">↑ Pre-activa glúteo + isquios → deadlift más fuerte</div><a href="https://www.youtube.com/watch?v=YSxHifyI6s8" target="_blank" class="yt r">▶ 9M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">🏋️</span><div><div class="b-title blue">Strength — Isquiotibiales & Glúteos</div><div class="b-sub">Deadlift barra+30kg · doble progresión · Nordic siempre</div></div></div>
+    <div class="bbody">
+      <table class="tt">
+        <thead><tr><th style="width:34%">Ejercicio</th><th>Series × Reps</th><th>Peso HOY</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td><div class="td-n">Deadlift con barra</div><div class="td-tip">Bisagra de cadera. Barra PEGADA al cuerpo. Espalda neutra. Empuja el suelo, no jales la barra.</div></td><td><span class="td-sets">4 × 8</span></td><td><div class="wb"><span class="wb-w">Barra + 30 kg discos</span><span class="wb-o">4×8 confirmado · prioriza técnica</span></div></td><td><span class="prog reps">▲ +1 rep → luego +2.5 kg</span></td></tr>
+          <tr><td><div class="td-n">Hip Thrust (máquina)</div><div class="td-tip">Extensión completa de cadera. 1 seg apriete arriba. Espalda alta en el respaldo.</div></td><td><span class="td-sets">4 × 12</span></td><td><div class="wb"><span class="wb-w">22 kg + 1 placa 20 kg = 42 kg</span><span class="wb-o">Tu peso confirmado</span></div></td><td><span class="prog reps">▲ +1–2 reps/serie</span></td></tr>
+          <tr><td><div class="td-n">Leg Curl tumbada</div><div class="td-tip">3 seg excéntrico bajando. La fase excéntrica es donde está el resultado real.</div></td><td><span class="td-sets">4 × 10–12</span></td><td><div class="wb"><span class="wb-w">Peso moderado · 3 seg abajo</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+          <tr><td><div class="td-n">RDL Unilateral (mancuerna)</div><div class="td-tip">Bisagra a una pierna. Mancuerna en mano contraria. Cadera cuadrada todo el tiempo.</div></td><td><span class="td-sets">3 × 10 c/lado</span></td><td><div class="wb"><span class="wb-w">10–12 kg c/mano</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+          <tr><td><div class="td-n">Nordic Curl Negativo</div><div class="td-tip">SOLO la bajada, 4–5 seg. Es tu seguro de lesión para el Muay Thai y el running. Siempre.</div></td><td><span class="td-sets">3 × 5</span></td><td><div class="wb"><span class="wb-w">Peso corporal</span></div></td><td><span class="prog maint">⚡ Obligatorio siempre</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead abz"><span class="b-icon">🔥</span><div><div class="b-title purple">Abdominales para Marcación · 6 Ejercicios</div><div class="b-sub">Progresión semanal — compara con día 1 y 2</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec purple"><div class="ec-n">ABS 01</div><div class="ec-name">Cable Crunch</div><div class="ec-meta purple">4 × 15 · mismo o más peso</div><div class="ec-tip">¿Puedes subir el peso vs los días anteriores? Este es tu ejercicio de carga para el recto.</div><div class="ec-why">↑ Hipertrofia recto abdominal — progresa el peso cada 2 semanas</div><a href="https://www.youtube.com/watch?v=2fbujeH3F0E" target="_blank" class="yt p">▶ 18M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 02</div><div class="ec-name">Hanging Knee Raise</div><div class="ec-meta purple">4 × 12 · baja en 2 seg</div><div class="ec-tip">Compara con el día 1. ¿Más control?</div><div class="ec-why">↑ Abs inferior + progresión hacia L-sit</div><a href="https://www.youtube.com/watch?v=JB2oyawG9KI" target="_blank" class="yt p">▶ 12M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 03</div><div class="ec-name">Hollow Body Hold</div><div class="ec-meta purple">3 × 40 seg · PR de la semana</div><div class="ec-tip">¿Puedes aguantar más que el día 1 o 2? Anota el tiempo máximo.</div><div class="ec-why">↑ Cadena anterior — tu benchmark semanal</div><a href="https://www.youtube.com/watch?v=LlDNef_Ztsc" target="_blank" class="yt p">▶ 22M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 04</div><div class="ec-name">Side Plank con Hip Dip</div><div class="ec-meta purple">3 × 12 c/lado</div><div class="ec-tip">Plancha lateral en el codo. Baja la cadera casi al suelo (sin tocar) y sube. Más difícil que el side plank estático.</div><div class="ec-why">↑ Oblicuos cargados — visible definition del lateral</div><a href="https://www.youtube.com/watch?v=_6vjo5yFo1U" target="_blank" class="yt p">▶ 13M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 05</div><div class="ec-name">V-Up</div><div class="ec-meta purple">3 × 12 reps</div><div class="ec-tip">Tumbada, levanta simultáneamente piernas y torso para que las manos toquen los pies. Baja controlado. Si es muy difícil: piernas dobladas.</div><div class="ec-why">↑ Recto abdominal completo — el más visible en la definición</div><a href="https://www.youtube.com/watch?v=7UVgs18Y1P4" target="_blank" class="yt p">▶ 8.9M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 06</div><div class="ec-name">Pallof Press con Rotación</div><div class="ec-meta purple">3 × 12 c/lado</div><div class="ec-tip">Mismo que días anteriores. Compara la estabilidad.</div><div class="ec-why">↑ Oblicuos — también potencia los hooks de Muay Thai</div><a href="https://www.youtube.com/watch?v=AH_QZLm_0-s" target="_blank" class="yt p">▶ 8M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-post"><span class="b-icon">🌙</span><div><div class="b-title teal">Movilidad Post Avanzada · Cadena Posterior + Yoga Yin</div><div class="b-sub">~15 min · holds largos · recuperación profunda</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob2"><div class="ec-n">POST 01</div><div class="ec-name">Pigeon Pose (Yin) Avanzado</div><div class="ec-meta teal">3–4 min c/lado</div><div class="ec-tip">Cuando sientas que cedes → dobla el torso hacia adelante sobre la pierna delantera. Más profundo que el pigeon normal.</div><div class="ec-why">↑ Rotadores externos — los más usados en deadlift y kicks</div><a href="https://www.youtube.com/watch?v=0qzn5RkXuTU" target="_blank" class="yt t">▶ 9.3M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 02</div><div class="ec-name">Jefferson Curl (con peso ligero)</div><div class="ec-meta teal">3 × 5 muy lentos · 2–5 kg</div><div class="ec-tip">De pie en un step. Con peso ligero, dobla la columna vértebra a vértebra hacia abajo. Revolutionario para isquios + columna.</div><div class="ec-why">↑ Isquios + columna — el stretch más avanzado que existe</div><a href="https://www.youtube.com/watch?v=mRPLqwfVbVA" target="_blank" class="yt t">▶ 5.1M views</a><span class="yt-views"> · Emmet Louis</span></div>
+      <div class="ec mob2"><div class="ec-n">POST 03</div><div class="ec-name">Dragon Pose (Yin)</div><div class="ec-meta teal">3 min c/lado</div><div class="ec-tip">Zancada profunda, rodilla trasera en el suelo. Hunde la cadera. Brazos al suelo si quieres más intensidad.</div><div class="ec-why">↑ Psoas + flexores — los más tensos post-deadlift y Muay Thai</div><a href="https://www.youtube.com/watch?v=7oGbZN8vQLk" target="_blank" class="yt t">▶ 6.2M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 04</div><div class="ec-name">Caterpillar (Yin)</div><div class="ec-meta teal">4–5 min</div><div class="ec-tip">Piernas largas, dobla hacia adelante. Espalda redondeada está perfecta en yin. Suelta todo. Respira.</div><div class="ec-why">↑ Cadena posterior completa — el mayor release que existe</div><a href="https://www.youtube.com/watch?v=5a3xtdC5_AM" target="_blank" class="yt t">▶ 4.7M views</a></div>
+      <div class="ec mob2"><div class="ec-n">POST 05</div><div class="ec-name">Supine Twist</div><div class="ec-meta teal">2 min c/lado</div><div class="ec-tip">Tumbada, rodilla al pecho y cruza al lado. Descomprime la columna post-deadlift.</div><div class="ec-why">↑ Descompresión lumbar post-deadlift pesado</div><a href="https://www.youtube.com/watch?v=3YCuvBcCkNI" target="_blank" class="yt t">▶ 8.1M views</a></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ═══ DÍA 4 · BRAZO B ═══ -->
+<div class="panel" id="p-dia4">
+  <div class="ph">
+    <div class="ph-label">Día 4 · El segundo día entre semana disponible</div>
+    <div class="ph-h2" style="color:var(--blue)">BRAZO B<br>ESPALDA & TRÍCEPS</div>
+    <div class="ph-tags">
+      <span class="ptag b">🏋️ Lat Pulldown · Remo · Skull Crusher</span>
+      <span class="ptag b">Pull-up asistida</span>
+      <span class="ptag">Face Pulls — siempre</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-pre"><span class="b-icon">🌅</span><div><div class="b-title green">Movilidad Pre Avanzada · Espalda + Hombro</div><div class="b-sub">~10 min · activa antes de jalones y remos</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob"><div class="ec-n">PRE 01</div><div class="ec-name">Shoulder CARs (más reps que día 2)</div><div class="ec-meta green">6 reps c/dirección</div><div class="ec-tip">+1 rep vs el día de brazo A. Calidad articular completa. Siente cada grado de rotación.</div><div class="ec-why">↑ ROM glenohumeral antes de jalones — previene impingement</div><a href="https://www.youtube.com/watch?v=9M8ml_vZdVw" target="_blank" class="yt g">▶ 6.2M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 02</div><div class="ec-name">Thoracic Extension (foam roller)</div><div class="ec-meta green">2 min · T4 a T10</div><div class="ec-tip">Roller perpendicular a la columna torácica. Rueda lentamente de T4 a T10. Cuando encuentres un punto tenso, párate ahí 10 seg.</div><div class="ec-why">↑ Extensión torácica → mejor postura en remo y jalón</div><a href="https://www.youtube.com/watch?v=d0HEOkdxhGw" target="_blank" class="yt g">▶ 12M views</a><span class="yt-views"> · Bob & Brad</span></div>
+      <div class="ec mob"><div class="ec-n">PRE 03</div><div class="ec-name">Thread the Needle (Rotación Torácica)</div><div class="ec-meta green">10 reps c/lado · codo al techo</div><div class="ec-tip">A cuatro patas. Rota el codo hacia el techo. Hoy añade: en la cima, mantén 2 seg. Más difícil que la versión normal.</div><div class="ec-why">↑ Rotación torácica — el remo pierde el 30% si está restringida</div><a href="https://www.youtube.com/watch?v=mwuKEjO7IOo" target="_blank" class="yt g">▶ 8.4M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 04</div><div class="ec-name">Band Pull-Apart (3 posiciones)</div><div class="ec-meta green">3 × 15 · todos los ángulos</div><div class="ec-tip">Mismo que día 2. Activa deltoides posterior y manguito rotador antes de jalones.</div><div class="ec-why">↑ Prepara manguito para lat pulldown y remo</div><a href="https://www.youtube.com/watch?v=TpDNAKaFnpM" target="_blank" class="yt g">▶ 4.1M views</a></div>
+      <div class="ec mob"><div class="ec-n">PRE 05</div><div class="ec-name">Wall Slide (Serratus Activation)</div><div class="ec-meta green">2 × 12 reps · contacto total</div><div class="ec-tip">Espalda en pared, brazos en Y. Desliza hasta overhead manteniendo CONTACTO TOTAL de lumbar, dorsal, brazos y muñecas.</div><div class="ec-why">↑ Trapecio inferior + serrato → escápula estable en jalón</div><a href="https://www.youtube.com/watch?v=MCsGkLGCEoA" target="_blank" class="yt g">▶ 7.9M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead plyo"><span class="b-icon">🔴</span><div><div class="b-title red">Plyometrics + Power · Jalón Explosivo</div><div class="b-sub">~8 min · activa el lat antes de pulldown</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec red"><div class="ec-n">PL 01</div><div class="ec-name">Inverted Row Explosivo (TRX o barra baja)</div><div class="ec-meta red">3 × 6 · jala RÁPIDO, baja 3 seg</div><div class="ec-tip">Cuerpo recto. Jala RÁPIDO hacia el pecho. Baja en 3 seg. Escápulas juntas en la cima.</div><div class="ec-why">↑ Potencia de jalón horizontal → remo más fuerte</div><a href="https://www.youtube.com/watch?v=LkDZXMRpOtA" target="_blank" class="yt r">▶ 11M views</a></div>
+      <div class="ec red"><div class="ec-n">PL 02</div><div class="ec-name">KB Row Explosivo (un brazo)</div><div class="ec-meta red">3 × 6 c/lado · explosivo arriba</div><div class="ec-tip">KB en una mano. Jala explosivo hacia la cadera, baja lento 3 seg. Codo cerca del cuerpo.</div><div class="ec-why">↑ Potencia de jalón vertical → lat pulldown más pesado</div><a href="https://www.youtube.com/watch?v=DMo3HJoAwrk" target="_blank" class="yt r">▶ Ver</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">🏋️</span><div><div class="b-title blue">Strength — Espalda & Tríceps</div><div class="b-sub">Lat pulldown + remo + tríceps · doble progresión</div></div></div>
+    <div class="bbody">
+      <table class="tt">
+        <thead><tr><th style="width:34%">Ejercicio</th><th>Series × Reps</th><th>Peso HOY</th><th>Objetivo</th></tr></thead>
+        <tbody>
+          <tr><td><div class="td-n">Lat Pulldown (jalón al pecho)</div><div class="td-tip">Agarre ancho. Jala al pecho alto. Control en la subida. Siente el lat, no los brazos.</div></td><td><span class="td-sets">4 × 10–12</span></td><td><div class="wb"><span class="wb-w">Peso moderado → ajusta</span><span class="wb-o">Enfoca en sentir el lat</span></div></td><td><span class="prog reps">▲ +1–2 reps/serie</span></td></tr>
+          <tr><td><div class="td-n">Remo en polea sentado</div><div class="td-tip">Agarre neutro. Codos hacia atrás. Aprieta escápulas AL FINAL del movimiento.</div></td><td><span class="td-sets">4 × 10–12</span></td><td><div class="wb"><span class="wb-w">Peso moderado</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+          <tr><td><div class="td-n">Remo con apoyo en pecho (T-bar)</div><div class="td-tip">Pecho en el pad — elimina la lumbar del movimiento. Protege la espalda.</div></td><td><span class="td-sets">3 × 10–12</span></td><td><div class="wb"><span class="wb-w">Peso moderado</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+          <tr><td><div class="td-n">Face Pull (cuerda)</div><div class="td-tip">Cuerda a la altura del rostro. Rotación externa al final. Siempre ligero. No sacrifiques la técnica por el peso.</div></td><td><span class="td-sets">3 × 15</span></td><td><div class="wb"><span class="wb-w">Siempre ligero</span></div></td><td><span class="prog maint">— Técnica siempre</span></td></tr>
+          <tr><td><div class="td-n">Skull Crusher (barra EZ)</div><div class="td-tip">Codos fijos. Baja hacia la frente. Extiende completamente. No abras los codos.</div></td><td><span class="td-sets">3 × 10–12</span></td><td><div class="wb"><span class="wb-w">Peso moderado</span></div></td><td><span class="prog reps">▲ +1–2 reps</span></td></tr>
+          <tr><td><div class="td-n">Pushdown de tríceps (cuerda)</div><div class="td-tip">Extensión completa abajo. Codos pegados al cuerpo. 2 seg excéntrico.</div></td><td><span class="td-sets">3 × 12–15</span></td><td><div class="wb"><span class="wb-w">Peso moderado</span></div></td><td><span class="prog reps">▲ +2 reps</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bhead abz"><span class="b-icon">🔥</span><div><div class="b-title purple">Abdominales para Marcación · 6 Ejercicios</div><div class="b-sub">PRs de la semana — anota todo para comparar el V8</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec purple"><div class="ec-n">ABS 01</div><div class="ec-name">Cable Crunch</div><div class="ec-meta purple">4 × 15 · PR de peso de la semana</div><div class="ec-tip">¿Puedes subir el peso esta sesión? Registra el peso usado.</div><div class="ec-why">↑ Carga progresiva = hipertrofia del recto</div><a href="https://www.youtube.com/watch?v=2fbujeH3F0E" target="_blank" class="yt p">▶ 18M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 02</div><div class="ec-name">Hanging Knee Raise</div><div class="ec-meta purple">4 × 12 · PR de reps de la semana</div><div class="ec-tip">¿Más reps que el día 1? Anota. El domingo siguiente supera este número.</div><div class="ec-why">↑ Abs inferior — zona más importante para la definición baja</div><a href="https://www.youtube.com/watch?v=JB2oyawG9KI" target="_blank" class="yt p">▶ 12M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 03</div><div class="ec-name">Hollow Body Hold</div><div class="ec-meta purple">3 × 45 seg · bate el PR semanal</div><div class="ec-tip">Último día de gym. ¿Puedes aguantar más que los días anteriores? Anota el tiempo máximo de la semana.</div><div class="ec-why">↑ Tu PR semanal de hollow body — el marcador de progreso</div><a href="https://www.youtube.com/watch?v=LlDNef_Ztsc" target="_blank" class="yt p">▶ 22M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 04</div><div class="ec-name">Bicycle Crunch (lento)</div><div class="ec-meta purple">3 × 20 reps · 2 seg c/rep</div><div class="ec-tip">Consistencia al final de semana. La calidad es lo que importa.</div><div class="ec-why">↑ Oblicuos verificados en EMG — cierra la semana fuerte</div><a href="https://www.youtube.com/watch?v=9FGilxCbdz8" target="_blank" class="yt p">▶ 15M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 05</div><div class="ec-name">Side Plank con Hip Dip</div><div class="ec-meta purple">3 × 12 c/lado · PR de reps</div><div class="ec-tip">¿Más reps que el día 3? Anota. La oblicua lateral define la cintura.</div><div class="ec-why">↑ Oblicuos cargados — definición lateral de la cintura</div><a href="https://www.youtube.com/watch?v=_6vjo5yFo1U" target="_blank" class="yt p">▶ 13M views</a></div>
+      <div class="ec purple"><div class="ec-n">ABS 06</div><div class="ec-name">Plank RKC (tensión máxima)</div><div class="ec-meta purple">3 × 20 seg MÁXIMA tensión</div><div class="ec-tip">Aprieta TODO: puños, glúteos, cuádriceps, core. 20s de tensión máxima ≠ 60s pasiva. Cierre de semana.</div><div class="ec-why">↑ Reclutamiento neural completo — más eficaz que el plank normal</div><a href="https://www.youtube.com/watch?v=pSHjTRCQxIw" target="_blank" class="yt p">▶ 10M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead strength"><span class="b-icon">💪</span><div><div class="b-title blue">Pull-Up + Calistenia</div><div class="b-sub">Comparación final vs día 2 — ¿mejoraste?</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec blue"><div class="ec-n">CALI 01</div><div class="ec-name">Pull-Up Asistida (banda)</div><div class="ec-meta blue">4 × máx reps · compara con día 2</div><div class="ec-tip">¿Más reps que el día 2? El volumen extra de Muay Thai y gym está funcionando. Registra reps c/serie.</div><div class="ec-why">↑ Referencia final de la semana — el número que importa</div><div class="ec-prog">→ Cuando hagas 4×8 limpias → bajas la banda</div><a href="https://www.youtube.com/watch?v=Hdc7Mw6BIEE" target="_blank" class="yt b">▶ 16M views</a></div>
+      <div class="ec blue"><div class="ec-n">CALI 02</div><div class="ec-name">Dip en banco</div><div class="ec-meta blue">3 × 12</div><div class="ec-tip">Inclinación ligera al frente para pecho. 90° en codos. Controlado.</div><div class="ec-why">↑ Tríceps + pecho — complementa skull crusher</div><a href="https://www.youtube.com/watch?v=sM4SHFSjMQ0" target="_blank" class="yt b">▶ 17M views</a></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <div class="bhead mob-post"><span class="b-icon">🌙</span><div><div class="b-title teal">Movilidad Post Avanzada · Yoga Yin Completo</div><div class="b-sub">~20 min · el más largo de la semana — toda la recuperación aquí</div></div></div>
+    <div class="bbody"><div class="cgrid">
+      <div class="ec mob2"><div class="ec-n">YIN 01</div><div class="ec-name">Child's Pose Lateral Avanzada</div><div class="ec-meta teal">2 min c/lado</div><div class="ec-tip">Camina manos a un lado. Añade: gira el torso ligeramente hacia arriba para intensificar el stretch de lat.</div><div class="ec-why">↑ Lat + hombro — los más cargados de la sesión</div><a href="https://www.youtube.com/watch?v=1HCflSFkRig" target="_blank" class="yt t">▶ Ver</a></div>
+      <div class="ec mob2"><div class="ec-n">YIN 02</div><div class="ec-name">Pigeon Pose Avanzado</div><div class="ec-meta teal">3 min c/lado</div><div class="ec-tip">Cuando cedes → dobla el torso sobre la pierna delantera. El stretch más intenso para el rotador externo.</div><div class="ec-why">↑ Rotadores externos — esenciales para Muay Thai y running</div><a href="https://www.youtube.com/watch?v=0qzn5RkXuTU" target="_blank" class="yt t">▶ 9.3M views</a></div>
+      <div class="ec mob2"><div class="ec-n">YIN 03</div><div class="ec-name">Dragon Pose (Yin)</div><div class="ec-meta teal">3 min c/lado</div><div class="ec-tip">Psoas y flexores. La semana entera de Muay Thai tensó esta cadena. Suelta todo.</div><div class="ec-why">↑ Psoas — el músculo del estrés y del Muay Thai</div><a href="https://www.youtube.com/watch?v=7oGbZN8vQLk" target="_blank" class="yt t">▶ 6.2M views</a></div>
+      <div class="ec mob2"><div class="ec-n">YIN 04</div><div class="ec-name">Pancake Stretch</div><div class="ec-meta teal">3 × 60 seg</div><div class="ec-tip">Piernas abiertas. Dobla hacia adelante. Cada semana llegas un poco más lejos. Fundamental para el round kick alto.</div><div class="ec-why">↑ Aductores + cadena posterior — limitante en kicks altos</div><a href="https://www.youtube.com/watch?v=PKuGPd6sbqQ" target="_blank" class="yt t">▶ 4.8M views</a></div>
+      <div class="ec mob2"><div class="ec-n">YIN 05</div><div class="ec-name">Butterfly (Yin)</div><div class="ec-meta teal">3–4 min</div><div class="ec-tip">Plantas de pies juntas, dobla adelante. No empujes las rodillas. Deja caer solo.</div><div class="ec-why">↑ Aductores internos — apertura de cadera completa</div><a href="https://www.youtube.com/watch?v=CsuB7lOZrZ4" target="_blank" class="yt t">▶ 7.3M views</a></div>
+      <div class="ec mob2"><div class="ec-n">YIN 06</div><div class="ec-name">Supine Twist + Savasana</div><div class="ec-meta teal">2 min c/lado + 5–8 min</div><div class="ec-tip">Twist primero para descomprimir. Luego Savasana sin teléfono. La recuperación real ocurre aquí.</div><div class="ec-why">↑ Parasimpático — aquí se construye el músculo de verdad</div><a href="https://www.youtube.com/watch?v=1VYlOKUdylM" target="_blank" class="yt t">▶ 21M views</a></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ═══ NOTAS ═══ -->
+<div class="panel" id="p-notas">
+  <div class="ph">
+    <div class="ph-label">Al final de la semana · dámelos → construyo el V8</div>
+    <div class="ph-h2">DATOS<br>SEMANA → V8</div>
+    <div class="ph-tags">
+      <span class="ptag y">📋 Anota al final de cada sesión</span>
+      <span class="ptag g">Sin estos datos no puedo ajustar los pesos</span>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    <div class="notes-title">Qué necesito para el V8</div>
+    <div class="notes-sub">Copia esto y rellénalo al acabar la semana</div>
+    <div class="notes-grid">
+      <div class="nc">
+        <div class="nc-title g">🦵 Fuerza Pierna</div>
+        <div class="ni"><span class="ni-k">Sentadilla</span><span class="ni-v">reps conseguidas × 4 series (ej: 8,8,7,6)</span></div>
+        <div class="ni"><span class="ni-k">Deadlift</span><span class="ni-v">reps conseguidas × 4 series</span></div>
+        <div class="ni"><span class="ni-k">Hip Thrust</span><span class="ni-v">reps × 4 series + ¿fácil o difícil?</span></div>
+        <div class="ni"><span class="ni-k">Leg Press</span><span class="ni-v">peso usado + reps</span></div>
+        <div class="ni"><span class="ni-k">Leg Curl</span><span class="ni-v">peso usado + reps</span></div>
+        <div class="ni"><span class="ni-k">Bulgarian</span><span class="ni-v">peso + reps c/lado</span></div>
+      </div>
+      <div class="nc">
+        <div class="nc-title b">💪 Fuerza Brazo</div>
+        <div class="ni"><span class="ni-k">Bench Press</span><span class="ni-v">peso total + reps × 4 series</span></div>
+        <div class="ni"><span class="ni-k">Shoulder Press</span><span class="ni-v">peso + reps</span></div>
+        <div class="ni"><span class="ni-k">Lat Pulldown</span><span class="ni-v">peso + reps</span></div>
+        <div class="ni"><span class="ni-k">Remo polea</span><span class="ni-v">peso + reps</span></div>
+        <div class="ni"><span class="ni-k">Curl Z</span><span class="ni-v">peso + reps</span></div>
+        <div class="ni"><span class="ni-k">Laterales</span><span class="ni-v">peso + reps</span></div>
+      </div>
+      <div class="nc">
+        <div class="nc-title p">🔥 Abs</div>
+        <div class="ni"><span class="ni-k">Cable Crunch</span><span class="ni-v">peso usado + reps</span></div>
+        <div class="ni"><span class="ni-k">Hanging KR</span><span class="ni-v">reps máximas conseguidas</span></div>
+        <div class="ni"><span class="ni-k">Hollow Hold</span><span class="ni-v">tiempo máximo (seg)</span></div>
+        <div class="ni"><span class="ni-k">Side Plank Dip</span><span class="ni-v">reps conseguidas</span></div>
+        <div class="ni"><span class="ni-k">V-Up</span><span class="ni-v">reps o variación usada</span></div>
+      </div>
+      <div class="nc">
+        <div class="nc-title r">🥊 Muay Thai</div>
+        <div class="ni"><span class="ni-k">Sesiones</span><span class="ni-v">¿cuántos días fuiste?</span></div>
+        <div class="ni"><span class="ni-k">Shadow</span><span class="ni-v">¿qué mejoró? ¿qué costó?</span></div>
+        <div class="ni"><span class="ni-k">Kicks</span><span class="ni-v">¿round kick o teep con más equilibrio?</span></div>
+        <div class="ni"><span class="ni-k">Cardio MT</span><span class="ni-v">¿llegaste bien hasta el final?</span></div>
+        <div class="ni"><span class="ni-k">4º día MT</span><span class="ni-v">¿añadiste el día extra?</span></div>
+      </div>
+      <div class="nc">
+        <div class="nc-title b">🎯 Pull-Up</div>
+        <div class="ni"><span class="ni-k">Día 2 (Dom)</span><span class="ni-v">reps por serie (ej: 6,5,5,4)</span></div>
+        <div class="ni"><span class="ni-k">Día 4</span><span class="ni-v">reps por serie</span></div>
+        <div class="ni"><span class="ni-k">Total reps</span><span class="ni-v">suma de todas las series</span></div>
+        <div class="ni"><span class="ni-k">Banda actual</span><span class="ni-v">¿qué banda usas?</span></div>
+      </div>
+      <div class="nc">
+        <div class="nc-title y">💬 Sensaciones</div>
+        <div class="ni"><span class="ni-k">Energía</span><span class="ni-v">1–10 general de la semana</span></div>
+        <div class="ni"><span class="ni-k">DOMS</span><span class="ni-v">¿qué dolió más?</span></div>
+        <div class="ni"><span class="ni-k">Dolor/molestia</span><span class="ni-v">zona + intensidad 1–10</span></div>
+        <div class="ni"><span class="ni-k">Movilidad</span><span class="ni-v">¿qué mejoró esta semana?</span></div>
+        <div class="ni"><span class="ni-k">Gym</span><span class="ni-v">¿tiene todo el equipamiento?</span></div>
+        <div class="ni"><span class="ni-k">Cambios</span><span class="ni-v">¿algo que quieras cambiar?</span></div>
+      </div>
+    </div>
+
+    <div class="rules">
+      <div class="rules-title">→ REGLAS DE DOBLE PROGRESIÓN — cuándo subir peso</div>
+      <div class="rule">Cuando llegues al TOPE ALTO de reps en TODAS las series con técnica perfecta → semana siguiente subes peso</div>
+      <div class="rule">Sentadilla: 4×8 → cuando llegues a 4×10 limpias → subes 2.5 kg c/lado (+5 kg total)</div>
+      <div class="rule">Deadlift: 4×8 → cuando llegues a 4×10 limpias → subes 2.5 kg c/lado (+5 kg total)</div>
+      <div class="rule">Hip Thrust máquina: cuando llegues a 4×15 limpias → añades otra placa de 5 kg</div>
+      <div class="rule">Cable Crunch abs: cuando llegues a 4×15 limpias → subes 2.5–5 kg en el cable</div>
+      <div class="rule">Pull-up asistida: cuando hagas 4×8 reps limpias con la banda actual → bajas a la siguiente banda más fina</div>
+      <div class="rule">Hollow body hold: +5 seg por semana hasta llegar a 60 seg → luego adds movimiento de piernas</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<footer>
+  <p class="f-text">Programa V7 · Jessica · Madrid · 17 oct 2026 · Gym: Sáb/Dom + 2 días semana · Muay Thai: Lun/Mar/Jue</p>
+  <div class="creatine">💊 Creatina diaria — también días de Muay Thai</div>
+</footer>
+
+<script>
+function show(id, el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
+HTMLEOF
+echo "done"
